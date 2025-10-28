@@ -1,0 +1,44 @@
+name: Sheet Change Detection
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Every 30 minutes
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Check for sheet changes
+      env:
+        GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+        SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+        SOURCE_WORKSHEETS: ${{ secrets.SOURCE_WORKSHEETS }}
+        GOOGLE_CHAT_WEBHOOK: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+      run: |
+        python check_sheet_changes.py
+
+    - name: Commit hash file
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -f last_source_hash.json
+        git diff --staged --quiet || git commit -m "Update sheet hashes [skip ci]"
+        git push

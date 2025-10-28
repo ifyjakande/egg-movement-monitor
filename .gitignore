@@ -1,0 +1,38 @@
+# Existing project files - DO NOT COMMIT
+create_excel_tracker.py
+Pullus_Egg_Movement_Tracker.xlsx
+pullus-pipeline-40a5302e034d.json
+SMART_WORKFLOW_GUIDE.md
+
+# All credentials and JSON files
+*.json
+
+# Exception: Allow hash tracking file only
+!last_source_hash.json
+
+# Environment files
+.env
+.env.*
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
