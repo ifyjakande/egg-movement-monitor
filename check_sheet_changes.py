@@ -8,7 +8,7 @@ import json
 import os
 import sys
 import hashlib
-from datetime import datetime
+from datetime import datetime, timedelta
 from google.oauth2.service_account import Credentials
 import gspread
 import requests
@@ -94,8 +94,9 @@ def save_hashes(hashes_data):
 def send_google_chat_card(webhook_url, changed_worksheets, spreadsheet_id):
     """Send a rich card notification to Google Chat."""
     try:
-        # Create timestamp
-        timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
+        # Create timestamp in WAT (UTC+1)
+        wat_time = datetime.utcnow() + timedelta(hours=1)
+        timestamp = wat_time.strftime('%Y-%m-%d %H:%M:%S WAT')
 
         # Build the changed worksheets text
         worksheets_text = "\n".join([f"• {ws_name}" for ws_name in changed_worksheets])
