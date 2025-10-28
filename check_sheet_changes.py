@@ -94,9 +94,9 @@ def save_hashes(hashes_data):
 def send_google_chat_card(webhook_url, changed_worksheets, spreadsheet_id):
     """Send a rich card notification to Google Chat."""
     try:
-        # Create timestamp in WAT (UTC+1)
+        # Create timestamp in WAT (UTC+1) with AM/PM format
         wat_time = datetime.utcnow() + timedelta(hours=1)
-        timestamp = wat_time.strftime('%Y-%m-%d %H:%M:%S WAT')
+        timestamp = wat_time.strftime('%Y-%m-%d %I:%M:%S %p WAT')
 
         # Build the changed worksheets text
         worksheets_text = "\n".join([f"• {ws_name}" for ws_name in changed_worksheets])
