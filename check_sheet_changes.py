@@ -106,7 +106,7 @@ def send_google_chat_card(webhook_url, changed_worksheets, spreadsheet_id):
             "cards": [
                 {
                     "header": {
-                        "title": "🔔 Google Sheet Changes Detected",
+                        "title": "🔔 Egg Movement Tracker - Changes Detected",
                         "subtitle": "Source data has been updated",
                         "imageUrl": "https://www.gstatic.com/images/branding/product/1x/sheets_48dp.png"
                     },
