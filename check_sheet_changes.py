@@ -97,10 +97,8 @@ def send_google_chat_card(webhook_url, changed_worksheets, spreadsheet_id):
         # Create timestamp
         timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
 
-        # Build the changed worksheets list for the card
-        worksheet_list = []
-        for ws_name in changed_worksheets:
-            worksheet_list.append({"text": f"• {ws_name}"})
+        # Build the changed worksheets text
+        worksheets_text = "\n".join([f"• {ws_name}" for ws_name in changed_worksheets])
 
         # Build Google Chat Card
         card = {
@@ -120,11 +118,13 @@ def send_google_chat_card(webhook_url, changed_worksheets, spreadsheet_id):
                                         "content": f"{len(changed_worksheets)} worksheet(s) updated",
                                         "icon": "DESCRIPTION"
                                     }
+                                },
+                                {
+                                    "textParagraph": {
+                                        "text": worksheets_text
+                                    }
                                 }
                             ]
-                        },
-                        {
-                            "widgets": worksheet_list
                         },
                         {
                             "widgets": [
