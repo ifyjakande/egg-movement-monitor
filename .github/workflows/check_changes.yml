@@ -2,7 +2,7 @@ name: Sheet Change Detection
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Every 30 minutes
+    - cron: '8,38 * * * *'  # Every 30 minutes
   workflow_dispatch:  # Allow manual trigger
 
 permissions:
